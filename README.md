@@ -37,6 +37,16 @@ Pour déclarer une commande VS Code correspondant à une fonction, il suffit d'a
 vscode.commands.registerCommand('extension.sayHello', sayHello)
 ```
 
+Le texte affiché pour décrire une commande est défini dans le fichier `package.json` :
+
+```json
+{
+    "command": "starWars.showCharacters",
+    "title": "Show characters",
+    "category": "Star Wars"
+}
+```
+
 # Faire des appels à une API
 
 VS Code ne restreint pas ce qu'il est possible de faire depuis une extension. Par exemple, on peut faire appel à une API HTTP comme on le ferait dans du code Node.js classique. On peut par exemple installer le package `node-fetch` et l'utiliser.
