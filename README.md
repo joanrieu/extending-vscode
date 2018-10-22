@@ -48,6 +48,16 @@ const res = await fetch(url)
 const json = await res.json()
 ```
 
+# Interagir avec l'utilisateur
+
+Il est possible de poser des questions à l'utilisateur ou d'afficher des menus déroulants présentant des résultats de recherche comme ceci :
+
+```js
+const characterName = await vscode.window.showQuickPick(names)
+if (characterName)
+    vscode.window.showInformationMessage(characterName)
+```
+
 # Conclusion
 
 TODO

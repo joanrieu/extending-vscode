@@ -28,8 +28,10 @@ async function fetchCharacters(): Promise<Character[]> {
 
 async function showCharacters() {
     const characters = await fetchCharacters()
-    const names = characters.map(c => c.name).join(", ")
-    vscode.window.showInformationMessage(names)
+    const names = characters.map(c => c.name)
+    const characterName = await vscode.window.showQuickPick(names)
+    if (characterName)
+        vscode.window.showInformationMessage(characterName)
 }
 
 // this method is called when your extension is activated
