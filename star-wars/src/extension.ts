@@ -2,26 +2,40 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import fetch from 'node-fetch';
+
+async function fetchApi(...args: (string | number)[]) {
+    const url = ["https://swapi.co/api", ...args].join("/")
+    // vscode.window.showInformationMessage("Fetching " + url)
+    try {
+        const res = await fetch(url)
+        const json = await res.json()
+        // vscode.window.showInformationMessage("Received " + JSON.stringify(json))
+        return json
+    } catch (err) {
+        // vscode.window.showErrorMessage(err.message)
+    }
+}
+
+interface Character {
+    name: string
+}
+
+async function fetchCharacters(): Promise<Character[]> {
+    const { results } = await fetchApi("people")
+    return results
+}
+
+async function showCharacters() {
+    const characters = await fetchCharacters()
+    const names = characters.map(c => c.name).join(", ")
+    vscode.window.showInformationMessage(names)
+}
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-
-    // Use the console to output diagnostic information (console.log) and errors (console.error)
-    // This line of code will only be executed once when your extension is activated
-    console.log('Congratulations, your extension "star-wars" is now active!');
-
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with  registerCommand
-    // The commandId parameter must match the command field in package.json
-    let disposable = vscode.commands.registerCommand('extension.sayHello', () => {
-        // The code you place here will be executed every time your command is executed
-
-        // Display a message box to the user
-        vscode.window.showInformationMessage('Hello World!');
-    });
-
-    context.subscriptions.push(disposable);
+    vscode.commands.registerCommand("starWars.showCharacters", showCharacters)
 }
 
 // this method is called when your extension is deactivated

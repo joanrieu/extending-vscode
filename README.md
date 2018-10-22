@@ -25,6 +25,29 @@ npx -p yo -p generator-code yo code
 
 Des sources d'exemple sont générées, y compris les tâches nécessaires pour démarrer l'extension en mode debug depuis VS Code. Appuyer sur F5 pour lancer la tâche. Un exemple de commande "Hello World" est déjà implémenté.
 
+Pour afficher un message, il suffit de faire :
+
+```js
+vscode.window.showInformationMessage('Hello World!');
+```
+
+Pour déclarer une commande VS Code correspondant à une fonction, il suffit d'appeler :
+
+```js
+vscode.commands.registerCommand('extension.sayHello', sayHello)
+```
+
+# Faire des appels à une API
+
+VS Code ne restreint pas ce qu'il est possible de faire depuis une extension. Par exemple, on peut faire appel à une API HTTP comme on le ferait dans du code Node.js classique. On peut par exemple installer le package `node-fetch` et l'utiliser.
+
+```js
+import fetch from 'node-fetch';
+// ...
+const res = await fetch(url)
+const json = await res.json()
+```
+
 # Conclusion
 
 TODO
