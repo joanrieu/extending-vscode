@@ -23,6 +23,8 @@ Générer à partir d'un template via Yeoman:
 npx -p yo -p generator-code yo code
 ```
 
+Des sources d'exemple sont générées, y compris les tâches nécessaires pour démarrer l'extension en mode debug depuis VS Code. Appuyer sur F5 pour lancer la tâche. Un exemple de commande "Hello World" est déjà implémenté.
+
 # Conclusion
 
 TODO
