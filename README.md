@@ -113,6 +113,31 @@ Il serait même possible de rajouter une nouvelle icône dans la barre latérale
 }
 ```
 
+Pour ajouter des données à l'intérieur de l'explorateur, il suffit d'implémenter l'interface `TreeDataProvider` :
+
+```ts
+vscode.window.registerTreeDataProvider("starWars.view", {
+    async getChildren(element?) {
+        if (element)
+            return [] // no subitems
+        return await fetchCharacters()
+    },
+    getTreeItem(character: Character) {
+        return {
+            label: character.name
+        }
+    }
+})
+```
+
+Pour que les données soient récupérées dès le démarrage de l'application, il faut modifier le `package.json` :
+
+```js
+"activationEvents": [
+    "*"
+]
+```
+
 # Conclusion
 
 TODO
