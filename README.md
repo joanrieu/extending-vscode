@@ -39,11 +39,15 @@ vscode.commands.registerCommand('extension.sayHello', sayHello)
 
 Le texte affiché pour décrire une commande est défini dans le fichier `package.json` :
 
-```json
-{
-    "command": "starWars.showCharacters",
-    "title": "Show characters",
-    "category": "Star Wars"
+```js
+"contributes": {
+    "commands": [
+        {
+            "command": "starWars.showCharacters",
+            "title": "Show characters",
+            "category": "Star Wars"
+        }
+    ]
 }
 ```
 
@@ -66,6 +70,47 @@ Il est possible de poser des questions à l'utilisateur ou d'afficher des menus 
 const characterName = await vscode.window.showQuickPick(names)
 if (characterName)
     vscode.window.showInformationMessage(characterName)
+```
+
+# Ajouter un explorateur
+
+Il est possible de créer de nouveaux explorateurs dans l'interface, via le fichier `package.json` :
+
+```js
+"contributes": {
+    "views": {
+        "explorer": [
+            {
+                "id": "starWars.view",
+                "name": "Star Wars"
+            }
+        ]
+    }
+}
+```
+
+Il serait même possible de rajouter une nouvelle icône dans la barre latérale pour isoler notre explorateur :
+
+```js
+"contributes": {
+    "viewsContainers": {
+        "activitybar": [
+            {
+                "id": "starWars",
+                "title": "Star Wars",
+                "icon": ""
+            }
+        ]
+    },
+    "views": {
+        "starWars": [
+            {
+                "id": "starWars.view",
+                "name": "Star Wars"
+            }
+        ]
+    }
+}
 ```
 
 # Conclusion

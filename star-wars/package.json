@@ -21,7 +21,15 @@
                 "title": "Show characters",
                 "category": "Star Wars"
             }
-        ]
+        ],
+        "views": {
+            "explorer": [
+                {
+                    "id": "starWars.view",
+                    "name": "Star Wars"
+                }
+            ]
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
