@@ -138,6 +138,47 @@ Pour que les données soient récupérées dès le démarrage de l'application, 
 ]
 ```
 
+# Associer une commande aux items de l'explorateur
+
+Un certain nombre de commandes sont disponibles dans VS Code, elles sont toutes listées avec leur nom dans `Préférences > Ouvrir les raccourcis clavier` et leur identifiant techniqe (passer la souris au-dessus). La documentation pour les action les plus importantes/utiles est disponible sur le site web de VS Code. Par exemple, on peut citer `vscode.open` et `markdown.showPreview` qui prennent en argument une URI à ouvrir.
+
+A chaque élément de l'explorateur, on peut associer une URI et une commande, l'URI étant utilisée pour déterminer le nom et l'icône associées à la ressource en question à différents endroits de l'interface. La commande, elle, est déclenchée au click sur la ressource dans l'explorateur.
+
+```ts
+getTreeItem(character: Character) {
+    const resourceUri = vscode.Uri.parse("sw://characters/" + character.name + "#" + character.url)
+    return {
+        resourceUri,
+        command: {
+            command: "markdown.showPreview",
+            title: "Show character",
+            arguments: [
+                resourceUri
+            ]
+        }
+    }
+}
+```
+
+On peut utiliser son propre protocole dans l'URI et définir un gestionnaire personnalisé pour ce protocole :
+
+```ts
+vscode.workspace.registerTextDocumentContentProvider("sw", {
+    async provideTextDocumentContent(uri, token) {
+        const character = await fetchCharacter(uri.fragment)
+        return `
+# ${character.name}
+
+${character.name} was born in the year ${character.birth_year}.
+
+| Height                 | Mass                 |
+|------------------------|----------------------|
+| ${character.height} cm | ${character.mass} kg |
+`
+    }
+})
+```
+
 # Conclusion
 
 TODO

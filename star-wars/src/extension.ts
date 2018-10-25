@@ -4,26 +4,24 @@
 import * as vscode from 'vscode';
 import fetch from 'node-fetch';
 
-async function fetchApi(...args: (string | number)[]) {
-    const url = ["https://swapi.co/api", ...args].join("/")
-    // vscode.window.showInformationMessage("Fetching " + url)
-    try {
-        const res = await fetch(url)
-        const json = await res.json()
-        // vscode.window.showInformationMessage("Received " + JSON.stringify(json))
-        return json
-    } catch (err) {
-        // vscode.window.showErrorMessage(err.message)
-    }
-}
-
 interface Character {
     name: string
+    url: string
+    height: string
+    mass: string
+    birth_year: string
 }
 
 async function fetchCharacters(): Promise<Character[]> {
-    const { results } = await fetchApi("people")
+    const res = await fetch("https://swapi.co/api/people")
+    const { results } = await res.json()
     return results
+}
+
+async function fetchCharacter(uri: string): Promise<Character> {
+    const res = await fetch(uri)
+    const json = await res.json()
+    return json
 }
 
 async function showCharacters() {
@@ -45,9 +43,31 @@ export function activate(context: vscode.ExtensionContext) {
             return await fetchCharacters()
         },
         getTreeItem(character: Character) {
+            const resourceUri = vscode.Uri.parse("sw://characters/" + character.name + "#" + character.url)
             return {
-                label: character.name
+                resourceUri,
+                command: {
+                    command: "markdown.showPreview",
+                    title: "Show character",
+                    arguments: [
+                        resourceUri
+                    ]
+                }
             }
+        }
+    })
+    vscode.workspace.registerTextDocumentContentProvider("sw", {
+        async provideTextDocumentContent(uri, token) {
+            const character = await fetchCharacter(uri.fragment)
+            return `
+# ${character.name}
+
+${character.name} was born in the year ${character.birth_year}.
+
+| Height                 | Mass                 |
+|------------------------|----------------------|
+| ${character.height} cm | ${character.mass} kg |
+`
         }
     })
 }
