@@ -14,8 +14,8 @@ interface Character {
 
 async function fetchCharacters(): Promise<Character[]> {
     const res = await fetch("https://swapi.co/api/people")
-    const { results } = await res.json()
-    return results
+    const json = await res.json()
+    return json.results
 }
 
 async function fetchCharacter(uri: string): Promise<Character> {
@@ -30,6 +30,28 @@ async function showCharacters() {
     const characterName = await vscode.window.showQuickPick(names)
     if (characterName)
         vscode.window.showInformationMessage(characterName)
+}
+
+async function searchCharactersByName(name: string): Promise<Character[]> {
+    const res = await fetch("https://swapi.co/api/people?search=" + encodeURIComponent(name))
+    const json = await res.json()
+    return json.results
+}
+
+async function searchCharacters() {
+    const qp = vscode.window.createQuickPick()
+    qp.placeholder = "Start typing to search using the API"
+    qp.onDidChangeValue(async input => {
+        if (input) {
+            qp.busy = true
+            const characters = await searchCharactersByName(input)
+            qp.items = characters.map(c => ({ label: c.name }))
+            qp.busy = false
+        } else {
+            qp.items = []
+        }
+    })
+    qp.show()
 }
 
 // this method is called when your extension is activated
@@ -70,6 +92,7 @@ ${character.name} was born in the year ${character.birth_year}.
 `
         }
     })
+    vscode.commands.registerCommand("starWars.searchCharacters", searchCharacters)
 }
 
 // this method is called when your extension is deactivated

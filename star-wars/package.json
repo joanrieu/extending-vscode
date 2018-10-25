@@ -20,6 +20,12 @@
                 "command": "starWars.showCharacters",
                 "title": "Show characters",
                 "category": "Star Wars"
+            },
+            {
+                "command": "starWars.searchCharacters",
+                "title": "Search characters",
+                "category": "Star Wars",
+                "icon": "assets/icon-search.svg"
             }
         ],
         "views": {
@@ -36,6 +42,14 @@
                     "id": "starWars",
                     "title": "Star Wars",
                     "icon": "assets/icon-sw.svg"
+                }
+            ]
+        },
+        "menus": {
+            "view/title": [
+                {
+                    "command": "starWars.searchCharacters",
+                    "group": "navigation"
                 }
             ]
         }

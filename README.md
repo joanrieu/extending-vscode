@@ -181,6 +181,45 @@ Il est possible de rajouter une nouvelle icône (SVG, 32x32) dans la barre laté
 },
 ```
 
+# Ajout de boutons dans l'en-tête d'une vue
+
+Des boutons peuvent être rajoutés dans l'en-tête des vues en ajoutant une déclaration de menu. La commande doit bien entendu avoir été déclarée au préalable. Une icône peut être fournie dans la déclaration de la commande de sorte à avoir un bouton plutôt qu'une apparence de menu.
+
+```js
+"contributes": {
+    "menus": {
+        "view/title": [
+            {
+                "command": "starWars.searchCharacters",
+                "group": "navigation"
+            }
+        ]
+    }
+},
+```
+
+# Recherche interactive
+
+Il est possible d'ouvrir une boîte de dialogue de recherche qui communique avec une API extérieure. Il est possible de mettre à jour en direct la liste des résultats affichés ainsi que d'afficher une barre de progression pendant la récupération des résultats.
+
+```ts
+async function searchCharacters() {
+    const qp = vscode.window.createQuickPick()
+    qp.placeholder = "Start typing to search using the API"
+    qp.onDidChangeValue(async input => {
+        if (input) {
+            qp.busy = true
+            const characters = await searchCharactersByName(input)
+            qp.items = characters.map(c => ({ label: c.name }))
+            qp.busy = false
+        } else {
+            qp.items = []
+        }
+    })
+    qp.show()
+}
+```
+
 # Conclusion
 
 TODO
