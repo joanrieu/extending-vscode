@@ -36,7 +36,7 @@ async function showCharacters() {
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("starWars.showCharacters", showCharacters)
-    vscode.window.registerTreeDataProvider("starWars.view", {
+    vscode.window.registerTreeDataProvider("starWars.characters", {
         async getChildren(element?) {
             if (element)
                 return []

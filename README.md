@@ -89,30 +89,6 @@ Il est possible de créer de nouveaux explorateurs dans l'interface, via le fich
 }
 ```
 
-Il serait même possible de rajouter une nouvelle icône dans la barre latérale pour isoler notre explorateur :
-
-```js
-"contributes": {
-    "viewsContainers": {
-        "activitybar": [
-            {
-                "id": "starWars",
-                "title": "Star Wars",
-                "icon": ""
-            }
-        ]
-    },
-    "views": {
-        "starWars": [
-            {
-                "id": "starWars.view",
-                "name": "Star Wars"
-            }
-        ]
-    }
-}
-```
-
 Pour ajouter des données à l'intérieur de l'explorateur, il suffit d'implémenter l'interface `TreeDataProvider` :
 
 ```ts
@@ -177,6 +153,32 @@ ${character.name} was born in the year ${character.birth_year}.
 `
     }
 })
+```
+
+# Ajouter un nouvel onglet dans la barre latérale
+
+Il est possible de rajouter une nouvelle icône (SVG, 32x32) dans la barre latérale pour isoler notre explorateur. On peut alors y rattacher notre vue créée précédemment.
+
+```js
+"contributes": {
+    "views": {
+        "starWars": [ // <-- attach our view to the new view container
+            {
+                "id": "starWars.characters",
+                "name": "Characters"
+            }
+        ]
+    },
+    "viewsContainers": {
+        "activitybar": [
+            {
+                "id": "starWars",
+                "title": "Star Wars",
+                "icon": "assets/icon-sw.svg"
+            }
+        ]
+    }
+},
 ```
 
 # Conclusion

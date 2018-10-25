@@ -23,10 +23,19 @@
             }
         ],
         "views": {
-            "explorer": [
+            "starWars": [
                 {
-                    "id": "starWars.view",
-                    "name": "Star Wars"
+                    "id": "starWars.characters",
+                    "name": "Characters"
+                }
+            ]
+        },
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "starWars",
+                    "title": "Star Wars",
+                    "icon": "assets/icon-sw.svg"
                 }
             ]
         }
