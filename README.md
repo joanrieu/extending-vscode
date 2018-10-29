@@ -3,17 +3,13 @@ title: Étendre VS Code
 subtitle: ou comment se créer un back-office en 10 min
 ---
 
-# Abstract
+# Introduction
 
 Construire sa propre extension VS Code, ça se fait en un rien de temps, alors s'il y a des tâches récurrentes dans votre quotidien de développeur, vous n'aurez plus d'excuse pour ne pas les automatiser !
 
 Au programme : live-coding d'une UI intégrée à VS Code qui accède à un service REST.
 
 Visual Studio Code dispose d'une API concise et très facile à prendre en main. Les possibilités sont infinies : questions-réponses interactives, affichage d'arborescence, HTML, notifications, appels HTTP, messages RabbitMQ, lecture de fichiers, etc.
-
-# Introduction
-
-TODO
 
 # Créer une extension
 
@@ -222,4 +218,6 @@ async function searchCharacters() {
 
 # Conclusion
 
-TODO
+En seulement quelques minutes, on a pu construire une interface assez poussée et ce n'est que le début de ce que permet l'API. Les interfaces sont toutes assez simples à utiliser et permettent de progressivement tirer parti de fonctionnalités plus avancées quand le besoin vient. Dans notre exemple d'une API REST, on pourrait imaginer implémenter l'interface de système de fichier pour permettre la modification des entités, ou une interface graphique complète grâce au système de WebView qui permet d'afficher une page HTML complète à l'intérieur d'un onglet.
+
+Les extensions peuvent être mises en ligne publiquement sur le marketplace ou exportées sous forme de fichier à installer manuellement.
