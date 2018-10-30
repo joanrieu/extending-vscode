@@ -25,3 +25,12 @@ export async function searchCharactersByName(name: string): Promise<Character[]>
     const json = await res.json()
     return json.results
 }
+
+export async function fetchCharacterImageURL(name: string): Promise<string | undefined> {
+    const res = await fetch("https://en.wikipedia.org/w/index.php?action=render&title=" + encodeURIComponent(name))
+    const html = await res.text()
+    const urls = /upload.wikimedia.org[^"]+/.exec(html)
+    const picture = urls && urls.find(url => !url.endsWith(".svg.png"))
+    if (picture)
+        return "https://" + picture
+}

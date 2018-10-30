@@ -1,10 +1,9 @@
-- hello world
-- fetch swapi.co/api/people
-- msg for each name
-- git checkout SWAPI.ts
-- quick pick
+- hello world message
+- hello world command
+- command group
+- list characters command (msg for each name)
+- search (quick pick, busy, on did change value, items)
 - explorer (tree data provider + view)
 - activity bar (view group)
 - preview markdown (markdown.showPreview + text content provider)
-- search (quick pick, busy, on did change value, items)
-- search button
+- search button (uri in map + on did accept)

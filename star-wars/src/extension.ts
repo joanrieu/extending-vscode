@@ -19,6 +19,8 @@ const swContentProvider: vscode.TextDocumentContentProvider = {
 
 ${character.name} was born in the year ${character.birth_year}.
 
+![](${await SWAPI.fetchCharacterImageURL(character.name)})
+
 | Height                 | Mass                 |
 |------------------------|----------------------|
 | ${character.height} cm | ${character.mass} kg |
