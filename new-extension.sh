@@ -6,4 +6,4 @@
 
 
 
-                        npm -p yo -p generator-code yo code
+                        npx -p yo -p generator-code yo code
