@@ -15,14 +15,16 @@ async function searchCharacters() {
     const qp = vscode.window.createQuickPick()
     qp.placeholder = "Start typing to search using the API"
     qp.onDidChangeValue(async input => {
+        qp.busy = true
         if (input) {
-            qp.busy = true
             const characters = await SWAPI.searchCharactersByName(input)
+            if (qp.value !== input)
+                return
             qp.items = characters.map(c => ({ label: c.name }))
-            qp.busy = false
         } else {
             qp.items = []
         }
+        qp.busy = false
     })
     qp.show()
 }
