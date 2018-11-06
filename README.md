@@ -3,6 +3,8 @@ title: Étendre VS Code
 subtitle: ou comment se créer un back-office en 10 min
 ---
 
+![Étendre VS Code](./Etendre VS Code.jpg)
+
 # Introduction
 
 Construire sa propre extension VS Code, ça se fait en un rien de temps, alors s'il y a des tâches récurrentes dans votre quotidien de développeur, vous n'aurez plus d'excuse pour ne pas les automatiser !
