@@ -27,5 +27,8 @@
     "tslint": "^5.12.1",
     "@types/node": "^10.12.21",
     "@types/mocha": "^2.2.42"
+  },
+  "dependencies": {
+    "node-fetch": "^2.3.0"
   }
 }
