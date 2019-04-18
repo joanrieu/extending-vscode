@@ -13,7 +13,41 @@
     "*"
   ],
   "main": "./out/extension.js",
-  "contributes": {},
+  "contributes": {
+    "commands": [
+      {
+        "command": "sw.pick",
+        "title": "Pick a character",
+        "category": "Star Wars",
+        "icon": "assets/icon-search.svg"
+      }
+    ],
+    "views": {
+      "sw": [
+        {
+          "id": "sw.characters",
+          "name": "Characters"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "sw",
+          "title": "Star Wars",
+          "icon": "assets/icon-sw.svg"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "sw.pick",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
